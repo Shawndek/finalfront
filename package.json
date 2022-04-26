@@ -1,18 +1,42 @@
 {
-  "name": "finalfront",
-  "version": "0.1.0",
+  "name": "finalproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "homepage": "https://localhost:3000/",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.1.1",
+    "@testing-library/jest-dom": "^5.16.2",
+    "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "5.0.1",
+    "axios": "^0.26.1",
+    "boostrap": "^2.0.0",
+    "bootstrap": "^5.1.3",
+    "bootstrap-icons": "^1.8.1",
+    "contentful": "^9.1.18",
+    "contentful-management": "^8.2.2",
+    "cors": "^2.8.5",
+    "dom": "^0.0.3",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "pg": "^8.7.3",
+    "pigeon-maps": "^0.21.0",
+    "pool": "^0.4.1",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.2.1",
+    "react-bootstrap-dropdown": "^0.3.0",
+    "react-bootstrap-icons": "^1.7.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^2.1.3",
+    "router": "^1.3.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -34,5 +58,20 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3",
+    "kill-port": "^1.6.1",
+    "nodemon": "^2.0.15"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/krupabahulya/meme-blog.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/krupabahulya/meme-blog/issues"
   }
 }
