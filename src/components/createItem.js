@@ -1,9 +1,10 @@
 import React from "react";
 import { useState /* , useEffect */ } from "react";
+
 import axios from "axios";
 
-export default function createItem() {
- // const [uploadedItem] = useState(null);
+export default function Item() {
+  const [uploadedItem] = useState(null);
   const [{ userid, category, title, text, compensation, comment, pic1 }, setFormState] = useState({
     title: "",
     text: "",
@@ -15,7 +16,7 @@ export default function createItem() {
 
   });
 
-  const uploadItem =  /* useEffect(*/ ()  => {
+  const uploadItem = /* useEffect( */ () => {
     const id = crypto.randomUUID(); 
     const createItem = "http://localhost:3001/items/";
     axios
@@ -35,24 +36,15 @@ export default function createItem() {
       .catch((error) => {
         console.log(error);
       });
-  }/* , []); */
+  }; /*, [] ) */
 
   const handleChange = (e) => {
 
-/*     if (e.target.nodeName === "SELECT") {
-      setFormState((prev) => ({
-        ...prev,
-        [e.target.name]: Array.from(
-          e.target.selectedOptions,
-          (option) => option.value
-        ),
-      }));
-    } else {  */
     setFormState((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
-  /* }; */
+  };
 
   return (
     <div className="App row">
@@ -70,7 +62,7 @@ export default function createItem() {
           onChange={handleChange}
         />
         <br />
-       <input
+        <input
           type="text"
           placeholder="Author..."
           value={userid}
@@ -123,7 +115,14 @@ export default function createItem() {
         <input type="submit" value="Upload" />
         </div> 
       </form>
+      {uploadedItem && (
+        <img
+          src={uploadedItem.pic1}
+          width="300"
+          alt={uploadedItem.title}
+        />
+      )}
       </div>
     </div>
   );
-      }};
+}
