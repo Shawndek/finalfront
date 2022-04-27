@@ -4,11 +4,9 @@ import { Outlet, NavLink } from 'react-router-dom'
  const Layout = () => {
   return (
     <div>
-        
-
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">GiveOrTake</a>
+    <a class="navbar-brand" href="/">GiveOrTake</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -19,7 +17,7 @@ import { Outlet, NavLink } from 'react-router-dom'
             <NavLink className="nav-link" to='/'>Home</NavLink>
         </li>
                <li className="nav-item">
-                    <NavLink className="nav-link" to='/createMeme'>Create Meme</NavLink>
+                    <NavLink className="nav-link" to='/createItem'>Post Item</NavLink>
                 </li>
                 
                 <li className="nav-item">

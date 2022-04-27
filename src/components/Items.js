@@ -9,7 +9,7 @@ const Items = ({ items, category }) => {
       {items.filter(item=>item.category===category).map((item, ItemID) => (
                <Item item={item} key={ItemID} />
             ))}{" "}
-      {category === 'All'&&
+      {category === 'all'&&
       items.map((item, ItemID) => (
         <Item item={item} key={ItemID} /> ))}
       <div className="p-2"></div>

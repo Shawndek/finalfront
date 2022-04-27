@@ -5,7 +5,7 @@ import DropMenu from "./Dropdown";
 
 const Home = () => {
   const [items, setItems] = useState([]);
-  const [category,setCategory]=useState('All');
+  const [category,setCategory]=useState('all');
   const handleSelect=(e)=>{
     console.log(e);
     setCategory(e)
