@@ -23,6 +23,7 @@
     "pg": "^8.7.3",
     "pigeon-maps": "^0.21.0",
     "pool": "^0.4.1",
+    "randomuuid": "^1.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.3.0",
     "react-bootstrap-dropdown": "^0.3.0",
