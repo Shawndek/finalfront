@@ -2,7 +2,7 @@ import React from "react";
 
 const Item = ({ item }) => {
   console.log(item);
-  const { userid, category, title, text, compensation, comment, pic1 } = item;
+  const { username, category, title, text, compensation, comment, pic1 } = item;
   return (
 <div className="row">
   <div className="col mx-3 col-sm-6">
@@ -13,7 +13,7 @@ const Item = ({ item }) => {
     <h6 className="card-subtitle"><i>{text}</i></h6>
   </div>
     <div className="card-body">
-    <p className="card-text"><b>By User {[userid]}</b></p>
+    <p className="card-text"><b>By User {[username]}</b></p>
     <p className="card-text"><b>Category: </b>{[category]}</p>
     <p className="card-text"><b>Compensation:</b><br></br> {[compensation]}</p>
     <p className="card-text"><b>Comment on compensation:</b> <br></br>{[comment]}</p>
