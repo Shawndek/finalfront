@@ -1,43 +1,65 @@
-import React from "react";
-import { useState /* , useEffect */ } from "react";
-import axios from "axios";
+import React from 'react';
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
+export default function CreateItem() {
+  const [imgURL, setImgURL] = useState();
+  const navigate = useNavigate()
 
-export default function Item() {
-  const API_URL = process.env.BACKEND_API
-  const createItem = `${API_URL}items/`;
-  const [uploadedItem] = useState(null);
-  const [{ userid, category, title, text, compensation, comment, pic1 }, setFormState] = useState({
-    itemid: "",
-    userid: "",
-    title: "",
-    text: "",
-    pic1: "",
-    category: "",
-    compensation: "",
-    comment: "",
-  });
-
-  const uploadItem = /* useEffect( */ (e) => { e.preventDefault();
-  const uuid = crypto.randomUUID()
+  const ImageUpload = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    console.log(e.target[0].files);
+    formData.append('pic1', e.target[0].files[0]);
     axios
-      .post(createItem, {
-        itemid: uuid,
-        userid: userid,
-        title: title,
-        text: text,
-        pic1: pic1,
-        category: category,
-        compensation: compensation,
-        comment: comment
-      })
+      .post(`${process.env.REACT_APP_BACKEND_API}upload-pic`, formData)
+      .then((res) => setImgURL(res.data.result.Location))
+      .catch((err) => console.log(err));
+  };
+  console.log(imgURL);
+
+  const [uploadedItem] = useState(null);
+  const [{ category, title, text, compensation, comment }, setFormState] =
+    useState({
+      itemid: '',
+      title: '',
+      text: '',
+      pic1: '',
+      category: '',
+      compensation: '',
+      comment: '',
+    });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const uuid = crypto.randomUUID();
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_API}items`,
+        {
+          itemid: uuid,
+          title: title,
+          text: text,
+          pic1: imgURL,
+          category: category,
+          compensation: compensation,
+          comment: comment,
+        },
+        {
+          headers: {
+            authorization: localStorage.getItem('token'),
+          },
+        }
+      )
       .then((res) => {
-        console.log(res);
-   })
+        const newItem = res.data;
+        navigate(`/item/${newItem.itemid}`);
+      })
       .catch((error) => {
         console.log(error.message);
       });
-  }; /*, [] ) */
+  };
 
   const handleChange = (e) => {
     setFormState((prev) => ({
@@ -46,31 +68,28 @@ export default function Item() {
     }));
   };
 
-  const ImageUpload = (e) => { e.preventDefault();
-  const formData = new FormData()
-    console.log(e.target[0].files)
-    formData.append('pic1', e.target[0].files[0]);
-    axios 
-      .post(`http://localhost:3001/upload-pic`, formData)  
-      .then(res => (console.log(res)))
-      .catch(err => (console.log(err)))
-  };
-
   return (
     <div className="App row">
       <h2>Create an Item</h2>
       <div className="col">
-
-        <form onSubmit = {ImageUpload}> 
-          <div class="form-group">
-            <label for="pic">Profile pic:</label>
+        <form onSubmit={ImageUpload}>
+          <div className="form-group">
+            <label for="pic">
+              <h5> upload image:</h5>
+            </label>
             <input type="file" className="form-control" name="pic1" />
           </div>
-          <button type="submit" className="btn btn-primary mt-3">Upload Image</button>
+          <button type="submit" className="btn btn-primary mt-3">
+            Upload Image
+          </button>
         </form>
-          <br />
 
-        <form onSubmit={uploadItem}>
+        <div>
+          <img src={imgURL} width="10%" />
+        </div>
+        <br />
+
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="d-flex col-3">
               <div className="col">
@@ -81,32 +100,21 @@ export default function Item() {
                   name="title"
                   onChange={handleChange}
                 />
-                <br />
-                <input
-                  type="text"
-                  placeholder="Author..."
-                  value={userid}
-                  name="userid"
-                  onChange={handleChange}
-                />
-                <input
-                  type="text"
-                  placeholder="img URL..."
-                  value={pic1}
-                  name="pic1"
-                  onChange={handleChange}
-                />
                 <textarea
                   placeholder="add description..."
                   name="text"
                   value={text}
                   onChange={handleChange}
-                  rows={20}
+                  rows={7}
                 />
               </div>
               <div className="col-3">
                 <label>Category</label>
-                <select name="category" value={category} onChange={handleChange}>
+                <select
+                  name="category"
+                  value={category}
+                  onChange={handleChange}
+                >
                   <option value="service">service</option>
                   <option value="product">product</option>
                   <option value="second-hand">second hand</option>
@@ -114,7 +122,11 @@ export default function Item() {
                 <br />
 
                 <label>Compensation</label>
-                <select name="compensation" value={compensation} onChange={handleChange}>
+                <select
+                  name="compensation"
+                  value={compensation}
+                  onChange={handleChange}
+                >
                   <option value="service">service</option>
                   <option value="product">product</option>
                   <option value="second-hand">second hand</option>
@@ -135,15 +147,11 @@ export default function Item() {
           <div className="row-3">
             <br />
             <input type="submit" value="Upload" />
-          </div> 
+          </div>
         </form>
-      {uploadedItem && (
-        <img
-          src={uploadedItem.pic1}
-          width="300"
-          alt={uploadedItem.title}
-        />
-      )}
+        {uploadedItem && (
+          <img src={uploadedItem.pic1} width="300" alt={uploadedItem.title} />
+        )}
       </div>
     </div>
   );
