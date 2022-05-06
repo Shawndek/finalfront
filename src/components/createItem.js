@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateItem() {
   const [imgURL, setImgURL] = useState();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const ImageUpload = (e) => {
     e.preventDefault();
@@ -85,7 +85,7 @@ export default function CreateItem() {
         </form>
 
         <div>
-          <img src={imgURL} width="10%" />
+          <img src={imgURL} width="10%" alt="" />
         </div>
         <br />
 
