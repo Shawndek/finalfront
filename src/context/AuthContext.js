@@ -84,9 +84,27 @@ const AuthState = ({ children }) => {
     }
   };
 
+  const logoutUser = () => {
+    try {
+      localStorage.removeItem('token');
+      setIsAuthenticated(false);
+      console.log('Logout');
+      navigate('/');
+    } catch (error) {
+      console.error(error.response?.data.error || error.message);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ isAuthenticated, loading, loginUser, registerUser, user }}
+      value={{
+        isAuthenticated,
+        loading,
+        loginUser,
+        logoutUser,
+        registerUser,
+        user,
+      }}
     >
       {children}
     </AuthContext.Provider>

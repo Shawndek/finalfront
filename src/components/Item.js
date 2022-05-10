@@ -20,7 +20,7 @@ const Item = ({ item }) => {
           style={{ width: 250, height: 300, marginTop: 30 }}
         >
           <h4 className="card-header">{title}</h4>
-          <a href={`./item/${itemid}`}>
+          <a href={`../item/${itemid}`}>
             <img
               src={pic1}
               alt={title}
