@@ -10,7 +10,7 @@ const MyItems = () => {
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState('all');
   const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
+  const { userData } = useAuth();
   const token = localStorage.getItem('token');
 
   const handleSelect = (e) => {
@@ -23,7 +23,7 @@ const MyItems = () => {
       try {
         setLoading(true);
         const { data } = await axios.get(
-          `${process.env.REACT_APP_BACKEND_API}items/MyItems/${user.userid}`,
+          `${process.env.REACT_APP_BACKEND_API}items/MyItems/${userData.userid}`,
           {
             headers: {
               Authorization: token,

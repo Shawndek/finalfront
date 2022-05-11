@@ -66,7 +66,7 @@ const Layout = () => {
               </NavLink>{' '}
             </li>
 
-            <li className="nav-item">
+            <li className="nav nav-item">
               <button
                 type="button"
                 className={isAuthenticated ? 'btn btn-primary' : 'd-none'}

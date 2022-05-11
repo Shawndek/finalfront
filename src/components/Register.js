@@ -29,9 +29,9 @@ const Register = () => {
   if (isAuthenticated) return <Navigate to="/" />;
 
   return (
-    <div>
+    <div className="container">
       <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
+      <form className="d-flex flex-column col-4" onSubmit={handleSubmit}>
         <input
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -50,7 +50,7 @@ const Register = () => {
           type="password"
           placeholder="Password"
         />
-        <input type="submit" value="Register" />
+
         <input
           value={address}
           onChange={(e) => setAddress(e.target.value)}
@@ -69,6 +69,7 @@ const Register = () => {
           type="text"
           placeholder="city)"
         />
+        <input className="btn btn-primary" type="submit" value="Register" />
       </form>
     </div>
   );
