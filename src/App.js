@@ -9,6 +9,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import ItemPage from './components/ItemPage';
 import MyItems from './components/MyItems';
+import './styles.css';
 
 const App = () => {
   return (

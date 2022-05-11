@@ -69,7 +69,7 @@ export default function CreateItem() {
   };
 
   return (
-    <div className="App row">
+    <div className="App row containerMargin">
       <h2>Create an Item</h2>
       <div className="col">
         <form onSubmit={ImageUpload}>
@@ -98,6 +98,13 @@ export default function CreateItem() {
                   placeholder="Title..."
                   value={title}
                   name="title"
+                  onChange={handleChange}
+                />
+                <input
+                  type="text"
+                  placeholder="short description..."
+                  value={comment}
+                  name="comment"
                   onChange={handleChange}
                 />
                 <textarea
@@ -133,20 +140,16 @@ export default function CreateItem() {
                   <option value="free">free</option>
                   <option value="other">other(specify)</option>
                 </select>
-
-                <input
-                  type="text"
-                  placeholder="comment on compensation..."
-                  value={comment}
-                  name="comment"
-                  onChange={handleChange}
-                />
               </div>
             </div>
           </div>
           <div className="row-3">
             <br />
-            <input type="submit" value="Upload" />
+            <input
+              className="btn-primary"
+              type="submit"
+              value="2. Create Item"
+            />
           </div>
         </form>
         {uploadedItem && (

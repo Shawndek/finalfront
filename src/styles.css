@@ -1,0 +1,21 @@
+.containerMargin {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.cardImg {
+  height: 150px;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+}
+.greyText {
+  color: grey;
+  font-size: medium;
+}
+
+.border {
+  border: solid 5px green;
+}
+.navText {
+  color: rgb(209, 217, 253);
+}
