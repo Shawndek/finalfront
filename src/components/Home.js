@@ -8,13 +8,14 @@ const Home = () => {
   const [items, setItems] = useState([]);
   const [category, setCategory] = useState('all');
   const [toggle, setToggle] = useState(true);
+  const BACKEND_API = process.env.REACT_APP_BACKEND_API;
   const handleSelect = (e) => {
     console.log(e);
     setCategory(e);
   };
 
   useEffect(() => {
-    const getItem = `http://localhost:3001/items/`;
+    const getItem = `${BACKEND_API}items`;
     axios
       .get(getItem)
       .then((res) => {
