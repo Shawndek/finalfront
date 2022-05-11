@@ -10,11 +10,13 @@ const AuthState = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(localStorage.getItem('token'));
-  const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log('useEffect');
     const getUser = async () => {
+      console.log('getUser');
       try {
         setLoading(true);
         const {
@@ -24,7 +26,8 @@ const AuthState = ({ children }) => {
             Authorization: token,
           },
         });
-        setUser(user);
+
+        setUserData(user);
         setIsAuthenticated(true);
         setLoading(false);
       } catch (error) {
@@ -38,7 +41,7 @@ const AuthState = ({ children }) => {
 
     token && getUser();
   }, [token]);
-
+  console.log('userData=', userData);
   const registerUser = async (formData) => {
     try {
       setLoading(true);
@@ -103,7 +106,7 @@ const AuthState = ({ children }) => {
         loginUser,
         logoutUser,
         registerUser,
-        user,
+        userData,
       }}
     >
       {children}

@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
-import { render } from '@testing-library/react';
 
 const ItemPage = () => {
   const { id } = useParams();
@@ -10,10 +9,7 @@ const ItemPage = () => {
   const [item, setItem] = useState(null);
   const [offer, setOffer] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [bidState, setBidState] = useState();
-  const { user } = useAuth();
-  const acceptBtn = document.getElementById('acceptBtn');
-  const rejectBtn = document.getElementById('rejectBtn');
+  const { userData } = useAuth();
   const [isActive, setActive] = useState(false);
   const [{ bid_text }, setFormState] = useState({
     item_id: '',
@@ -64,13 +60,13 @@ const ItemPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(user);
+    console.log(userData);
     try {
       const { data } = await axios.post(
         `${process.env.REACT_APP_BACKEND_API}bids`,
         {
           item_id: id,
-          bidder_id: user.userid,
+          bidder_id: userData.userid,
           bid_text: bid_text,
         },
         {
@@ -136,10 +132,15 @@ const ItemPage = () => {
               <div key={bid.bid_id}>
                 <div className="alert alert-dismissible alert-primary">
                   <h5>
-                    {bid.bid_status === 2
-                      ? 'already rejected'
-                      : `You accepted the following offer: ${bid.bid_text}`}
-                  </h5>{' '}
+                    {bid.bid_status === 2 ? (
+                      <div>
+                        <div>already rejected: </div>
+                        <div className="greyText">{bid.bid_text}</div>
+                      </div>
+                    ) : (
+                      `(You accepted the following offer: ${bid.bid_text}`
+                    )}
+                  </h5>
                   <div className="row d-flex justify-content-around">
                     <div className="col-3">
                       <button
@@ -176,8 +177,8 @@ const ItemPage = () => {
     <div className="row d-flex justify-content-around">
       <div className="col-4 alert alert-dismissible alert-secondary">
         <h2>{item.title}</h2>
-        <img src={item.pic1} alt="" width="20%" />
-        <p>{item.text}</p>
+        <img className="cardImg" src={item.pic1} alt="" width="20%" />
+        <p>{item.comment}</p>
         <div className="card-body ">
           <p className="card-text">
             <b>By User {[item.userid]}</b>
@@ -187,19 +188,19 @@ const ItemPage = () => {
             {[item.category]}
           </p>
           <p className="card-text">
-            <b>Compensation:</b>
+            <b>What you could offer me:</b>
             <br></br> {[item.compensation]}
           </p>
           <p className="card-text">
-            <b>Comment on compensation:</b> <br></br>
-            {[item.comment]}
+            <b>Details:</b> <br></br>
+            {[item.text]}
           </p>
         </div>
       </div>
       <div className="col-3 alert alert-dismissible alert-secondary">
-        {user?.userid === item.userid ? (
+        {userData?.userid === item.userid ? (
           <div className="row d-flex ">
-            <h4>You have the following bids for your post:</h4>
+            <h4>You have the following offers for your post:</h4>
             {mapBids()}
           </div>
         ) : (
@@ -218,9 +219,9 @@ const ItemPage = () => {
         )}
         {bids &&
           bids
-            .filter((bid) => bid.bidder_id === user.userid.toString())
+            .filter((bid) => bid.bidder_id === userData?.userid.toString())
             .map((bid) => (
-              <li>
+              <li key={bid.bidder_id}>
                 {bid.bid_text} |{' '}
                 {bid.bid_status === 0
                   ? 'Pending'
